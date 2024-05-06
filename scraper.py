@@ -16,8 +16,13 @@ from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 AMAZON_US_URL = 'https://amazon.com'
 AMAZON_CUSTOMER_REVIEWS_URL_FORMAT = 'https://www.amazon.com/product-reviews/{product_id}?sortBy={sort_by}&pageNumber={page_number}&filterByStar={review_type}'
 
+proxy_host = '142.54.231.38'
+proxy_port = 4145
+
 def create_firefox_web_driver_conection() -> WebDriver:
+    proxy_server_url = f"{proxy_host}:{proxy_port}"
     firefox_options = Options()
+    firefox_options.add_argument(f'--proxy-server={proxy_server_url}')
     firefox_options.add_argument("--headless")
 
     # Create a custom Firefox profile
