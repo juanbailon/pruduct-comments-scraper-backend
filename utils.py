@@ -86,10 +86,15 @@ async def get_comments_summary_from_GPT(api_key: str, comments: list[str]):
 
 
 if __name__ == '__main__':
+    import os
     import asyncio
+    from dotenv import load_dotenv
+    load_dotenv()
+
+    API_KEY = os.getenv("API_KEY")
 
     async def main():
-        result = await get_comments_summary_from_GPT('api-key', ['muy bueno', 'excelente calidad', 'buena relacion calidad precio'])
+        result = await get_comments_summary_from_GPT(API_KEY, ['muy bueno', 'excelente calidad', 'buena relacion calidad precio'])
         print(result)
 
     asyncio.run(main())
