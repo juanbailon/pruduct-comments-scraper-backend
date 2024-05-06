@@ -120,43 +120,41 @@ def get_amazon_product_url_by_id(product_id: str) -> str:
     return f'https://amazon.com/dp/{product_id}/'
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     
-#     driver = create_firefox_web_driver_conection()
+    driver = create_firefox_web_driver_conection()
 
-#     busca = 'jordan'
-#     # 'SABORES DE FAMILIA, MI LIBRO DE RECETAS'
-#     # 'tablero magic the gathering color blue-red donut'
+    busca = input('search: ')
 
 
-#     open_url(driver, AMAZON_US_URL)
-#     search_product_amazon(driver, busca)
-#     product_id = get_amazon_choice_product_id(driver)
-#     product_url = get_amazon_product_url_by_id(product_id)
+    open_url(driver, AMAZON_US_URL)
+    search_product_amazon(driver, busca)
+    product_id = get_amazon_choice_product_id(driver)
+    product_url = get_amazon_product_url_by_id(product_id)
 
-#     print(product_id)
+    print(product_id)
 
-#     review_url = get_amazon_product_reviews_url(product_id= product_id, review_type= 'positive')
-#     coments = get_product_comments(driver, review_url)
+    review_url = get_amazon_product_reviews_url(product_id= product_id, review_type= 'positive')
+    coments = get_product_comments(driver, review_url)
 
 
-#     review_url_2 = get_amazon_product_reviews_url(product_id= product_id, review_type= 'critical')
-#     coments_critical = get_product_comments(driver, review_url_2)
+    review_url_2 = get_amazon_product_reviews_url(product_id= product_id, review_type= 'critical')
+    coments_critical = get_product_comments(driver, review_url_2)
 
-#     print(product_url)
-#     # print(len(coments), " - ", len(coments_critical))
+    print(product_url)
+    # print(len(coments), " - ", len(coments_critical))
 
-#     cnt = 0
-#     for c in coments:
-#         if len(c)==0:
-#             cnt+= 1
+    cnt = 0
+    for c in coments:
+        if len(c)==0:
+            cnt+= 1
         
-#         print(c)
+        print(c)
 
-#     print(cnt)
-#     print('\n ########################################## \n')
+    print(cnt)
+    print('\n ########################################## \n')
 
-#     for c in coments_critical:
-#         print(c)
+    for c in coments_critical:
+        print(c)
 
-#     # driver.quit()
+    driver.quit()
