@@ -3,8 +3,9 @@ import scraper
 
 
 async def amazon_comment_scraper(product_name: str) -> tuple[str, list[str], list[str]]:
+    
+    driver = scraper.create_firefox_web_driver_conection()
     try:
-        driver = scraper.create_firefox_web_driver_conection()
         scraper.open_url(driver, scraper.AMAZON_US_URL)
 
         scraper.search_product_amazon(driver, product_name= product_name)

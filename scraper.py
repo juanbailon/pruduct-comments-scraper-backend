@@ -10,6 +10,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 
 
 AMAZON_US_URL = 'https://amazon.com'
@@ -18,6 +19,16 @@ AMAZON_CUSTOMER_REVIEWS_URL_FORMAT = 'https://www.amazon.com/product-reviews/{pr
 def create_firefox_web_driver_conection() -> WebDriver:
     firefox_options = Options()
     firefox_options.add_argument("--headless")
+
+    # Create a custom Firefox profile
+    profile = FirefoxProfile()
+    
+    # Set custom headers
+    profile.set_preference("general.useragent.override", "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0")
+    profile.set_preference("intl.accept_languages", "en-US,en;q=0.5")
+    # profile.set_preference("Your-Header-Name", "Your Header Value")
+
+
     driver = webdriver.Firefox(options= firefox_options)
     return driver
 
@@ -123,38 +134,39 @@ def get_amazon_product_url_by_id(product_id: str) -> str:
 if __name__ == '__main__':
     
     driver = create_firefox_web_driver_conection()
-
-    busca = input('search: ')
-
-
-    open_url(driver, AMAZON_US_URL)
-    search_product_amazon(driver, busca)
-    product_id = get_amazon_choice_product_id(driver)
-    product_url = get_amazon_product_url_by_id(product_id)
-
-    print(product_id)
-
-    review_url = get_amazon_product_reviews_url(product_id= product_id, review_type= 'positive')
-    coments = get_product_comments(driver, review_url)
+    try:
+        busca = input('search: ')
 
 
-    review_url_2 = get_amazon_product_reviews_url(product_id= product_id, review_type= 'critical')
-    coments_critical = get_product_comments(driver, review_url_2)
+        open_url(driver, AMAZON_US_URL)
+        search_product_amazon(driver, busca)
+        product_id = get_amazon_choice_product_id(driver)
+        product_url = get_amazon_product_url_by_id(product_id)
 
-    print(product_url)
-    # print(len(coments), " - ", len(coments_critical))
+        print(product_id)
 
-    cnt = 0
-    for c in coments:
-        if len(c)==0:
-            cnt+= 1
-        
-        print(c)
+        review_url = get_amazon_product_reviews_url(product_id= product_id, review_type= 'positive')
+        coments = get_product_comments(driver, review_url)
 
-    print(cnt)
-    print('\n ########################################## \n')
 
-    for c in coments_critical:
-        print(c)
+        review_url_2 = get_amazon_product_reviews_url(product_id= product_id, review_type= 'critical')
+        coments_critical = get_product_comments(driver, review_url_2)
 
-    driver.quit()
+        print(product_url)
+        # print(len(coments), " - ", len(coments_critical))
+
+        cnt = 0
+        for c in coments:
+            if len(c)==0:
+                cnt+= 1
+            
+            print(c)
+
+        print(cnt)
+        print('\n ########################################## \n')
+
+        for c in coments_critical:
+            print(c)
+ 
+    except Exception as e:
+        driver.quit()
