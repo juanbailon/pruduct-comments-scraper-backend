@@ -85,13 +85,13 @@ async def get_comments_summary_from_GPT(api_key: str, comments: list[str]):
     
 
 
-# if __name__ == '__main__':
-#     import asyncio
+if __name__ == '__main__':
+    import asyncio
 
-#     async def main():
-#         result = await get_comments_summary_from_GPT('api-key', ['muy bueno', 'excelente calidad', 'buena relacion calidad precio'])
-#         print(result)
+    async def main():
+        result = await get_comments_summary_from_GPT('api-key', ['muy bueno', 'excelente calidad', 'buena relacion calidad precio'])
+        print(result)
 
-#     asyncio.run(main())
+    asyncio.run(main())
 
 
