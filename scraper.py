@@ -16,24 +16,10 @@ from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
 AMAZON_US_URL = 'https://amazon.com'
 AMAZON_CUSTOMER_REVIEWS_URL_FORMAT = 'https://www.amazon.com/product-reviews/{product_id}?sortBy={sort_by}&pageNumber={page_number}&filterByStar={review_type}'
 
-proxy_host = '142.54.231.38'
-proxy_port = 4145
 
 def create_firefox_web_driver_conection() -> WebDriver:
-    proxy_server_url = f"{proxy_host}:{proxy_port}"
     firefox_options = Options()
-    firefox_options.add_argument(f'--proxy-server={proxy_server_url}')
     firefox_options.add_argument("--headless")
-
-    # Create a custom Firefox profile
-    profile = FirefoxProfile()
-    
-    # Set custom headers
-    profile.set_preference("general.useragent.override", "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0")
-    profile.set_preference("intl.accept_languages", "en-US,en;q=0.5")
-    # profile.set_preference("Your-Header-Name", "Your Header Value")
-
-
     driver = webdriver.Firefox(options= firefox_options)
     return driver
 

@@ -58,8 +58,6 @@ async def get_comments_summary_from_GPT(api_key: str, comments: list[str]):
     for comment in comments:
         all_comments += comment + '\n' + '\n'
 
-    print(f'{prompt} \n {all_comments}')
-
     try:
         response = requests.post('https://api.openai.com/v1/chat/completions',
                                  headers={
